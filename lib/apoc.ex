@@ -32,10 +32,10 @@ defmodule Apoc do
   # TODO: Spec (returns a tuple)
   @doc "Decodes a URL safe base 64 string to binary"
   def decode(encoded) do
-    Base.url_decode64(encoded, padding: false)
+    Base.decode64(encoded)
   end
   def decode!(encoded) do
-    Base.url_decode64!(encoded, padding: false)
+    Base.decode64!(encoded)
   end
 
   @doc """
@@ -76,7 +76,7 @@ defmodule Apoc do
   """
   @spec encode(payload :: binary) :: encoded_string()
   def encode(payload) when is_binary(payload) do
-    Base.url_encode64(payload, padding: false)
+    Base.encode64(payload)
   end
 
   @doc """

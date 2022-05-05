@@ -68,7 +68,7 @@ defmodule Apoc.RSA.PrivateKey do
           :crypto.private_decrypt(:rsa, ctb, to_erlang_type(skey), :rsa_pkcs1_oaep_padding)}
       end
     rescue
-      _ -> :error
+      err -> {:error, err}
     end
   end
 
