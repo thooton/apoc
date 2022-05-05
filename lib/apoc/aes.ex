@@ -84,13 +84,12 @@ defmodule Apoc.AES do
 
   defp do_encrypt(msg, aad, key) do
     iv = Apoc.rand_bytes(@iv_byte_size)
-    {ct, tag} = :crypto.block_encrypt(:aes_gcm, key, iv, {aad, msg})
+    {ct, tag} = :crypto.crypto_one_time_aead(:aes_gcm, key, iv, msg, aad, true)
     Apoc.encode(aad <> iv <> tag <> ct)
   end
 
   defp do_decrypt(ct, aad, iv, tag, key) when is_valid_aad(aad) do
-    :aes_gcm
-    |> :crypto.block_decrypt(key, iv, {aad, ct, tag})
+    :crypto.crypto_one_time_aead(:aes_gcm, key, iv, ct, aad, tag, false)
     |> case do
       plain_text when is_binary(plain_text) ->
         {:ok, plain_text}

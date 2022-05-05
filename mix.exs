@@ -1,7 +1,7 @@
 defmodule Apoc.Mixfile do
   use Mix.Project
 
-  @version "0.2.0"
+  @version "0.2.1"
 
   def project do
     [
@@ -34,7 +34,11 @@ defmodule Apoc.Mixfile do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [
+        :logger,
+        :crypto,
+        :public_key
+      ]
     ]
   end
 
